@@ -649,7 +649,7 @@ def main(argv: list[str]) -> int:
     if "--selftest" in argv:
         return selftest(api, store, config)
     if not token:
-        print("TELEGRAM_BOT_TOKEN missing (telegram-bot/.env)", file=sys.stderr)
+        print("TELEGRAM_BOT_TOKEN missing — cp .env.example .env", file=sys.stderr)
         return 2
 
     tg = Telegram(token)
