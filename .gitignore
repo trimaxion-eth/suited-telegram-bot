@@ -1,0 +1,23 @@
+# Never commit secrets or runtime state.
+.env
+.env.*
+!.env.example
+
+# Bot state: sqlite holds chat ids and usernames; the spectator files hold a
+# private key and a live bearer token.
+data/
+*.sqlite
+*.sqlite-*
+*.log
+*.lock
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Editors / OS
+.DS_Store
+.idea/
+.vscode/

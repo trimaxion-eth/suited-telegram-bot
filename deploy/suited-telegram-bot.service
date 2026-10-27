@@ -1,0 +1,31 @@
+# Suited Telegram bot (@suited_club_bot) — systemd user unit.
+# Long polling: no inbound port, no TLS, no Caddy block.
+#
+#   HOST=user@server ./deploy/deploy.sh
+#   systemctl --user status suited-telegram-bot
+#   journalctl --user -u suited-telegram-bot -f
+#
+[Unit]
+Description=Suited Telegram bot (@suited_club_bot)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=%h/apps/suited-telegram-bot
+ExecStart=%h/apps/suited-telegram-bot/.venv/bin/python bot.py
+Restart=always
+RestartSec=5
+# bot.py exits within 3 s of SIGTERM (watchdog in Bot.stop)
+TimeoutStopSec=15
+Environment=PYTHONUNBUFFERED=1
+Environment=PYTHONDONTWRITEBYTECODE=1
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectSystem=full
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=suited-tg-bot
+
+[Install]
+WantedBy=default.target

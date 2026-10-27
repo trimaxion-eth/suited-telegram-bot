@@ -1,0 +1,19 @@
+name: checks
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  secrets:
+    name: no secrets, compiles
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Secret scan
+        run: python3 scripts/check_secrets.py
+      - name: Byte-compile every module
+        run: python3 -m compileall -q -x '(__pycache__|data|\\.venv)' .
