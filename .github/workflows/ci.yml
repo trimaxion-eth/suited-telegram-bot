@@ -16,4 +16,4 @@ jobs:
       - name: Secret scan
         run: python3 scripts/check_secrets.py
       - name: Byte-compile every module
-        run: python3 -m compileall -q -x '(__pycache__|data|\\.venv)' .
+        run: python3 -m compileall -q -x '(__pycache__|data)' .
